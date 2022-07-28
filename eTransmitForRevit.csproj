@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: C:\Program Files\Autodesk\eTransmit for Revit 2019\eTransmitForRevit.dll-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8C1F6CAD-5C41-4B24-8C32-E50A79AFEE25}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>eTransmitForRevit</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <ApplicationVersion>19.0.0.0</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>eTransmitForRevit</RootNamespace>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="RevitAPI">
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2019\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2019\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="eTransmitForRevitDB">
+      <HintPath>lib\eTransmitForRevitDB.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdditionalFilesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="eTransmitAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="eTransmitAvailabilityCheck.cs" />
+    <Compile Include="eTransmitCommand.cs" />
+    <Compile Include="InspectingModelDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="eTransmitResources.cs" />
+    <Compile Include="SelectViewTypes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransmittingFilesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="eTransmitReport.cs" />
+    <Compile Include="PreTransmitHandler.cs" />
+    <Compile Include="PostTransmitHandler.cs" />
+    <Compile Include="eTransmitCallbackHandler.cs" />
+    <Compile Include="eTransmitAbout.cs" />
+    <Compile Include="eTransmitApplication.cs" />
+    <Compile Include="eTransmitHelpLauncher.cs" />
+    <Compile Include="eTransmitHelp.cs" />
+    <Compile Include="eTransmitSettingsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenServerFileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NodeType.cs" />
+    <Compile Include="ServerNode.cs" />
+    <Compile Include="ServerTree.cs" />
+    <Compile Include="ProgressBarDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SuccessDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\TransmitModelSelectorUtils.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AdditionalFilesDialog.resx" />
+    <EmbeddedResource Include="eTransmitAboutBox.resx" />
+    <EmbeddedResource Include="eTransmitResources.resx" />
+    <EmbeddedResource Include="eTransmitSettingsDialog.resx" />
+    <EmbeddedResource Include="OpenServerFileDialog.resx" />
+    <EmbeddedResource Include="ProgressBarDialog.resx" />
+    <EmbeddedResource Include="SelectViewTypes.resx" />
+    <EmbeddedResource Include="SuccessDialog.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
