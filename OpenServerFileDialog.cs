@@ -24,7 +24,12 @@ namespace eTransmitForRevit
     {
         private string m_fileName;
         private string m_currentServer;
-        private List<ServerTree> m_serverTrees;
+        internal List<ServerTree> m_serverTrees;
+        internal List<ServerTree> ServerTrees
+        {
+            get { return m_serverTrees; }
+            set { m_serverTrees = value; }
+        }
         private List<string> m_currentPath;
         private List<List<string>> m_lastPaths;
         private ExternalCommandData m_commandData;
@@ -156,19 +161,19 @@ namespace eTransmitForRevit
             else
             {
                 ServerNode serverNode = (ServerNode)this.serverGrid.SelectedRows[0].Cells[0].Value;
-                if (serverNode.NodeType == NodeType.Model)
-                {
-                    this.m_fileName = "RSN://" + this.m_currentPath[0] + "/";
-                    for (int index = 1; index < this.m_currentPath.Count; ++index)
-                        this.m_fileName = this.m_fileName + this.m_currentPath[index] + "/";
-                    this.m_fileName += serverNode.Name;
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
-                }
-                else
-                {
-                    int num = (int)MessageBox.Show(eTransmitResources.PleaseSelectAValidModel);
-                }
+                //if (serverNode.NodeType == NodeType.Model)
+                //{
+                this.m_fileName = "RSN://" + this.m_currentPath[0] + "/";
+                for (int index = 1; index < this.m_currentPath.Count; ++index)
+                    this.m_fileName = this.m_fileName + this.m_currentPath[index] + "/";
+                this.m_fileName += serverNode.Name;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+                //}
+                //else
+                //{
+                //    int num = (int)MessageBox.Show(eTransmitResources.PleaseSelectAValidModel);
+                //}
             }
         }
 
@@ -615,6 +620,7 @@ namespace eTransmitForRevit
             this.MinimizeBox = false;
             this.MinimumSize = new Size(719, 476);
             this.Name = nameof(OpenServerFileDialog);
+            this.Name = "OpenServerFileDialog";
             this.StartPosition = FormStartPosition.CenterScreen;
             ((ISupportInitialize)this.serverGrid).EndInit();
             this.ResumeLayout(false);

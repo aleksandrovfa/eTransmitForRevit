@@ -303,7 +303,8 @@ namespace eTransmitForRevit
             baseOutputDirectory = optionsNoTimestamp.GetBaseOutputDirectory();
             IEnumerable<Autodesk.Revit.DB.ModelPath> mainModelNames = optionsNoTimestamp.GetMainModelNames();
             string userVisiblePath1 = ModelPathUtils.ConvertModelPathToUserVisiblePath(mainModelNames.First());
-            if (mainModelNames.Count() == 1)
+            //if (mainModelNames.Count() == 1)
+            if (mainModelNames.Count() >= 1)
             {
                 baseOutputDirectory = Path.Combine(baseOutputDirectory, Path.GetFileNameWithoutExtension(userVisiblePath1));
             }
@@ -347,7 +348,7 @@ namespace eTransmitForRevit
                         if (taskDialogResult == Autodesk.Revit.UI.TaskDialogResult.CommandLink2 || taskDialogResult == Autodesk.Revit.UI.TaskDialogResult.Cancel)
                         {
                             graph = new TransmissionGraph(mainModelNames, new TransmissionOptions());
-                            return (Result)1;
+                            return Result.Cancelled;
                         }
                     }
                 }
@@ -360,7 +361,7 @@ namespace eTransmitForRevit
             graph = inspectingModelDialog.GetTransmissionGraph();
             bool canceled1 = inspectingModelDialog.Canceled;
             if (isRecording & canceled1)
-                return (Result)1;
+                return Result.Cancelled;
             try
             {
                 Directory.CreateDirectory(baseOutputDirectory);
@@ -421,7 +422,7 @@ namespace eTransmitForRevit
                 {
                     application.WriteJournalComment("eTransmit - Unable to delete transmission directory after canceling transmission. Extended message: " + ex.Message, true);
                 }
-                return (Result)1;
+                return Result.Cancelled;
             }
             return !succeeded ? Result.Failed : Result.Succeeded;
         }

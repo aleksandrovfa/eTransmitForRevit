@@ -15,6 +15,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using System.Windows.Forms;
 using Control = System.Windows.Forms.Control;
 using Form = System.Windows.Forms.Form;
@@ -26,6 +29,7 @@ namespace eTransmitForRevit
 {
     public class eTransmitSettingsDialog : Form
     {
+        public OpenServerFileDialog serverFileDialog;
         private string m_centralServerName;
         private ExternalCommandData m_commandData;
         private string m_outputDirectoryWithTimestamp;
@@ -396,7 +400,7 @@ namespace eTransmitForRevit
 
         private void inspectModelButton_Click(object sender, EventArgs e)
         {
-            IEnumerable<Autodesk.Revit.DB.ModelPath> fromFileOrFolder = (IEnumerable<Autodesk.Revit.DB.ModelPath>)TransmitModelSelectorUtils.GetModelPathsFromFileOrFolder(this.GetInputName());
+            IEnumerable<Autodesk.Revit.DB.ModelPath> fromFileOrFolder = (IEnumerable<Autodesk.Revit.DB.ModelPath>)TransmitModelSelectorUtils.GetModelPathsFromFileOrFolder(this.GetInputName(),GetServerList());
             if (!AReferencedFile.StringIsServerFile(this.GetInputName()) && (fromFileOrFolder == null || !fromFileOrFolder.Any()))
             {
                 int num1 = (int)MessageBox.Show(eTransmitResources.PleaseSelectAValidModel);
@@ -441,13 +445,14 @@ namespace eTransmitForRevit
             }
         }
 
+
         private void fileOpenTextBox_TextChanged(object sender, EventArgs e)
         {
         }
 
         private void serverFileOpenButton_Click(object sender, EventArgs e)
         {
-            OpenServerFileDialog serverFileDialog = new OpenServerFileDialog(this.m_commandData);
+            serverFileDialog = new OpenServerFileDialog(this.m_commandData);
             if (serverFileDialog.ShowDialog() != DialogResult.OK)
                 return;
             this.fileOpenTextBox.Text = serverFileDialog.GetFileName();
@@ -873,7 +878,8 @@ namespace eTransmitForRevit
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new Size(628, 693);
-            this.Name = nameof(eTransmitSettingsDialog);
+            this.Name = "eTransmitSettingsDialog";
+            //this.Name = nameof(eTransmitSettingsDialog);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -889,6 +895,87 @@ namespace eTransmitForRevit
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+        }
+
+
+        private List<ServerTree> GetServerList()
+        {
+            if (this.serverFileDialog != null)
+            {
+                return this.serverFileDialog.ServerTrees;
+            }
+            else
+            {
+                string serverName = this.GetInputName()
+                                        .Replace("RSN://", "")
+                                        .Split('/')
+                                        [0];
+                ServerTree serverTree = new ServerTree(serverName);
+                HttpWebRequest httpWebRequest = WebRequest.Create(new Uri(new Uri(string.Format("http://{0}/RevitServerAdminRESTService{1}/AdminRESTService.svc/", serverName, (object)TransmissionOptions.ServiceVersion)), "|/contents")) as HttpWebRequest;
+                httpWebRequest.Method = "GET";
+                httpWebRequest.Timeout = 180000;
+                httpWebRequest.Headers.Add("User-Name", "eTransmit add-in");
+                httpWebRequest.Headers.Add("User-Machine-Name", Environment.MachineName);
+                httpWebRequest.Headers.Add("Operation-GUID", Guid.NewGuid().ToString());
+                httpWebRequest.Headers.Add("API-Version", "1.1");
+
+                HttpWebResponse response = httpWebRequest.GetResponse() as HttpWebResponse;
+                HttpStatusCode statusCode = response.StatusCode;
+                string end = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                response.Close();
+                FolderOnServer folderOnServer = (FolderOnServer)new DataContractJsonSerializer(typeof(FolderOnServer)).ReadObject((Stream)new MemoryStream(Encoding.UTF8.GetBytes(end)));
+                if (folderOnServer != null)
+                {
+                    ServerNode rootNode = serverTree.GetRootNode();
+                    string str = "";
+                    foreach (InsideOfOneFolder folder in folderOnServer.Folders)
+                    {
+                        ServerNode node = new ServerNode(NodeType.Folder, folder.Name);
+                        if (folder.HasContents)
+                            AddChildrenOfServerNode(ref node, str + folder.Name, serverName);
+                        rootNode.AddChild(node);
+                    }
+                    foreach (FileOnServer model in folderOnServer.Models)
+                    {
+                        ServerNode node = new ServerNode(NodeType.Model, model.Name);
+                        rootNode.AddChild(node);
+                    }
+                }
+                List<ServerTree> listServerTree = new List<ServerTree>();
+                listServerTree.Add(serverTree);
+                return listServerTree;
+            }
+        }
+
+
+        private void AddChildrenOfServerNode(ref ServerNode node, string dirPath, string serverName)
+        {
+            HttpWebRequest httpWebRequest = WebRequest.Create(new Uri(new Uri(string.Format("http://{0}/RevitServerAdminRESTService{1}/AdminRESTService.svc/", serverName, (object)TransmissionOptions.ServiceVersion)), dirPath + "/contents")) as HttpWebRequest;
+            httpWebRequest.Method = "GET";
+            httpWebRequest.Timeout = 180000;
+            httpWebRequest.Headers.Add("User-Name", "eTransmit add-in");
+            httpWebRequest.Headers.Add("User-Machine-Name", Environment.MachineName);
+            httpWebRequest.Headers.Add("Operation-GUID", Guid.NewGuid().ToString());
+            httpWebRequest.Headers.Add("API-Version", "1.0");
+            HttpWebResponse response = httpWebRequest.GetResponse() as HttpWebResponse;
+            HttpStatusCode statusCode = response.StatusCode;
+            string end = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            response.Close();
+            FolderOnServer folderOnServer = (FolderOnServer)new DataContractJsonSerializer(typeof(FolderOnServer)).ReadObject((Stream)new MemoryStream(Encoding.UTF8.GetBytes(end)));
+            if (folderOnServer == null)
+                return;
+            foreach (InsideOfOneFolder folder in folderOnServer.Folders)
+            {
+                ServerNode node1 = new ServerNode(NodeType.Folder, folder.Name);
+                if (folder.HasContents)
+                    AddChildrenOfServerNode(ref node1, dirPath + "|" + folder.Name, serverName);
+                node.AddChild(node1);
+            }
+            foreach (FileOnServer model in folderOnServer.Models)
+            {
+                ServerNode node2 = new ServerNode(NodeType.Model, model.Name);
+                node.AddChild(node2);
+            }
         }
     }
 }

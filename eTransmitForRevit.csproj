@@ -50,7 +50,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="eTransmitForRevitDB">
       <HintPath>lib\eTransmitForRevitDB.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>

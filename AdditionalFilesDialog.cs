@@ -198,7 +198,8 @@ namespace eTransmitForRevit
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.MinimumSize = new Size(577, 357);
-      this.Name = nameof (AdditionalFilesDialog);
+      //this.Name = nameof (AdditionalFilesDialog);
+      this.Name = "AdditionalFilesDialog";
       this.StartPosition = FormStartPosition.CenterScreen;
       this.FormClosed += new FormClosedEventHandler(this.AdditionalFilesDialog_FormClosed);
       this.ResumeLayout(false);

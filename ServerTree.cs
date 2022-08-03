@@ -8,7 +8,7 @@ namespace eTransmitForRevit
 {
   internal class ServerTree
   {
-    private ServerNode m_rootNode;
+    public ServerNode m_rootNode;
 
     public ServerTree(string serverName) => this.m_rootNode = new ServerNode(NodeType.Server, serverName);
 
