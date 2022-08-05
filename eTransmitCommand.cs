@@ -28,6 +28,7 @@ namespace eTransmitForRevit
     [Journaling(JournalingMode.UsingCommandData)]
     internal class eTransmitCommand : IExternalCommand
     {
+        public static eTransmitSettingsDialog transmitSettingsDialog = null;
         public Result Execute(ExternalCommandData commandData,ref string message,ElementSet elements)
         {
             IDictionary<string, string> journalData = commandData.JournalData;
@@ -69,7 +70,7 @@ namespace eTransmitForRevit
             TransmissionViews excludedViewsTypes = new TransmissionViews();
             string input = "";
             string str1 = "";
-            eTransmitSettingsDialog transmitSettingsDialog = new eTransmitSettingsDialog(commandData, options, includeReport);
+            transmitSettingsDialog = new eTransmitSettingsDialog(commandData, options, includeReport);
             bool flag3;
             if (isRecording)
             {
@@ -301,23 +302,33 @@ namespace eTransmitForRevit
             failCreateDirectory = false;
             failDiskSpace = false;
             baseOutputDirectory = optionsNoTimestamp.GetBaseOutputDirectory();
+            //string baseInputDirectory = ;
             IEnumerable<Autodesk.Revit.DB.ModelPath> mainModelNames = optionsNoTimestamp.GetMainModelNames();
             string userVisiblePath1 = ModelPathUtils.ConvertModelPathToUserVisiblePath(mainModelNames.First());
             //if (mainModelNames.Count() == 1)
-            if (mainModelNames.Count() >= 1)
+            if (mainModelNames.Count() == 1)
             {
                 baseOutputDirectory = Path.Combine(baseOutputDirectory, Path.GetFileNameWithoutExtension(userVisiblePath1));
             }
             else
             {
-                string directoryName = Path.GetDirectoryName(Path.GetFullPath(userVisiblePath1));
-                if (!string.IsNullOrWhiteSpace(directoryName))
-                {
-                    DirectoryInfo directoryInfo = new DirectoryInfo(directoryName);
-                    baseOutputDirectory = Path.Combine(baseOutputDirectory, directoryInfo.Name);
-                }
-                else
-                    baseOutputDirectory = Path.Combine(baseOutputDirectory, Path.GetFileNameWithoutExtension(userVisiblePath1));
+                
+                //string directoryName = Path.GetDirectoryName(Path.GetFullPath(userVisiblePath1));
+                //if (!string.IsNullOrWhiteSpace(directoryName))
+                //{
+                //    DirectoryInfo directoryInfo = new DirectoryInfo(directoryName);
+                //    baseOutputDirectory = Path.Combine(baseOutputDirectory, directoryInfo.Name);
+                //}
+                //else
+                //    baseOutputDirectory = Path.Combine(baseOutputDirectory, Path.GetFileNameWithoutExtension(userVisiblePath1));
+
+                string InputName = transmitSettingsDialog.GetInputName();
+                string nameFolder = InputName.Split('/').Last();
+
+                string[] nameFolder1 = InputName.Split('/');
+                
+
+                baseOutputDirectory = Path.Combine(baseOutputDirectory, nameFolder);
             }
             DateTime now = DateTime.Now;
             if (optionsNoTimestamp.IncludeDateTime)
