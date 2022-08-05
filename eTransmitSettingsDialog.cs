@@ -387,7 +387,7 @@ namespace eTransmitForRevit
                     folderBrowserDialog.SelectedPath = directoryName2;
                 }
             }
-            catch (System.ArgumentException ex)
+            catch (Autodesk.Revit.Exceptions.ArgumentException ex)
             {
             }
             catch (PathTooLongException ex)
@@ -446,8 +446,7 @@ namespace eTransmitForRevit
                 if (this.GetSaveSettings())
                     eTransmitCommand.WriteSettingsFile(transmissionOptions, this.GetAddReport(), this.m_commandData.Application.Application);
                 transmissionOptions.AdditionalFiles = this.m_additionalFiles;
-                Result result = eTransmitCommand.uiTransmitFiles(this.m_commandData.Application, true, transmissionOptions, out this.m_graph, out this.m_outputDirectoryWithTimestamp, out this.m_failCreateDirectory, out this.m_failDiskSpace
-                    );
+                Result result = eTransmitCommand.uiTransmitFiles(this.m_commandData.Application, true, transmissionOptions, out this.m_graph, out this.m_outputDirectoryWithTimestamp, out this.m_failCreateDirectory, out this.m_failDiskSpace);
                 if (result == (Result)1)
                     return;
                 this.m_succeeded = result == 0;
