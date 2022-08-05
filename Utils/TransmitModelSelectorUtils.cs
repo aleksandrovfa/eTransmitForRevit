@@ -68,11 +68,11 @@ namespace eTransmitForRevit.Utils
                 if (node.NodeType == NodeType.Folder)
                 {
                     
-                    foreach (ServerNode nodeChildren in node.GetChildren())
-                    {
-                        inputNode = inputNode + "/" + node.Name;
-                        GetRvtFilesInFolder(ref inputNodes, ref inputNode, nodeChildren);
-                    }
+                    //foreach (ServerNode nodeChildren in node.GetChildren())
+                    //{
+                    //    inputNode = inputNode + "/" + node.Name;
+                    //    GetRvtFilesInFolder(ref inputNodes, ref inputNode, nodeChildren);
+                    //}
                     //GetRvtFilesInFolder(ref inputNodes, ref inputNode, folder);
                 }
                 else if (node.NodeType == NodeType.Model)

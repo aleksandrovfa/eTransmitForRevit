@@ -387,7 +387,7 @@ namespace eTransmitForRevit
                     folderBrowserDialog.SelectedPath = directoryName2;
                 }
             }
-            catch (Autodesk.Revit.Exceptions.ArgumentException ex)
+            catch (System.ArgumentException ex)
             {
             }
             catch (PathTooLongException ex)
@@ -400,14 +400,24 @@ namespace eTransmitForRevit
 
         private void inspectModelButton_Click(object sender, EventArgs e)
         {
-            IEnumerable<Autodesk.Revit.DB.ModelPath> fromFileOrFolder = (IEnumerable<Autodesk.Revit.DB.ModelPath>)TransmitModelSelectorUtils.GetModelPathsFromFileOrFolder(this.GetInputName(),GetServerList());
+            List<ServerTree> serverTrees = new List<ServerTree>();
+            try
+            {
+                serverTrees = GetServerList();
+            }
+            catch 
+            {
+                serverTrees = null;
+                //MessageBox.Show(eTransmitResources.PleaseSelectAValidModel);
+            }
+            IEnumerable<Autodesk.Revit.DB.ModelPath> fromFileOrFolder = (IEnumerable<Autodesk.Revit.DB.ModelPath>)TransmitModelSelectorUtils.GetModelPathsFromFileOrFolder(this.GetInputName(), serverTrees);
             if (!AReferencedFile.StringIsServerFile(this.GetInputName()) && (fromFileOrFolder == null || !fromFileOrFolder.Any()))
             {
-                int num1 = (int)MessageBox.Show(eTransmitResources.PleaseSelectAValidModel);
+                MessageBox.Show(eTransmitResources.PleaseSelectAValidModel);
             }
             else if (!Directory.Exists(this.GetSaveFolder()))
             {
-                int num2 = (int)MessageBox.Show(eTransmitResources.PleaseSelectADirectory);
+               MessageBox.Show(eTransmitResources.PleaseSelectADirectory);
             }
             else
             {
@@ -436,7 +446,8 @@ namespace eTransmitForRevit
                 if (this.GetSaveSettings())
                     eTransmitCommand.WriteSettingsFile(transmissionOptions, this.GetAddReport(), this.m_commandData.Application.Application);
                 transmissionOptions.AdditionalFiles = this.m_additionalFiles;
-                Result result = eTransmitCommand.uiTransmitFiles(this.m_commandData.Application, true, transmissionOptions, out this.m_graph, out this.m_outputDirectoryWithTimestamp, out this.m_failCreateDirectory, out this.m_failDiskSpace);
+                Result result = eTransmitCommand.uiTransmitFiles(this.m_commandData.Application, true, transmissionOptions, out this.m_graph, out this.m_outputDirectoryWithTimestamp, out this.m_failCreateDirectory, out this.m_failDiskSpace
+                    );
                 if (result == (Result)1)
                     return;
                 this.m_succeeded = result == 0;
