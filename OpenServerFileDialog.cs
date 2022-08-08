@@ -18,7 +18,7 @@ using System.Windows.Forms;
 
 using ComboBox = System.Windows.Forms.ComboBox;
 
-namespace eTransmitForRevit
+namespace eTransmitForRevitPirat
 {
     public class OpenServerFileDialog : Form
     {

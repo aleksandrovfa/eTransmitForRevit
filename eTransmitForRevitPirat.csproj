@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8C1F6CAD-5C41-4B24-8C32-E50A79AFEE25}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>eTransmitForRevit</AssemblyName>
+    <AssemblyName>eTransmitForRevitPirat</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <ApplicationVersion>19.0.0.0</ApplicationVersion>
     <FileAlignment>512</FileAlignment>
-    <RootNamespace>eTransmitForRevit</RootNamespace>
+    <RootNamespace>eTransmitForRevitPirat</RootNamespace>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

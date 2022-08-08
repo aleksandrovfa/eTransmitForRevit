@@ -7,7 +7,7 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.Exceptions;
 using Autodesk.Revit.UI;
-using eTransmitForRevit.Utils;
+using eTransmitForRevitPirat.Utils;
 using eTransmitForRevitDB;
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ using Panel = System.Windows.Forms.Panel;
 using Point = System.Drawing.Point;
 using TextBox = System.Windows.Forms.TextBox;
 
-namespace eTransmitForRevit
+namespace eTransmitForRevitPirat
 {
     public class eTransmitSettingsDialog : Form
     {
@@ -889,8 +889,8 @@ namespace eTransmitForRevit
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new Size(628, 693);
-            this.Name = "eTransmitSettingsDialog";
-            //this.Name = nameof(eTransmitSettingsDialog);
+            //this.Name = "eTransmitSettingsDialog";
+            this.Name = nameof(eTransmitSettingsDialog);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -6,7 +6,7 @@
 
 using eTransmitForRevitDB;
 
-namespace eTransmitForRevit
+namespace eTransmitForRevitPirat
 {
   public delegate void PostTransmitHandler(object sender, FileEventArgs e);
 }

@@ -9,7 +9,7 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
-using eTransmitForRevit.Utils;
+using eTransmitForRevitPirat.Utils;
 using eTransmitForRevitDB;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ using Form = System.Windows.Forms.Form;
 
 
 
-namespace eTransmitForRevit
+namespace eTransmitForRevitPirat
 {
     [Regeneration(RegenerationOption.Manual)]
     [Transaction(TransactionMode.Manual)]
