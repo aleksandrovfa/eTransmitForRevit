@@ -416,6 +416,7 @@ namespace eTransmitForRevitPirat
                 MessageBox.Show(eTransmitResources.PleaseSelectAValidModel);
             }
             else if (!Directory.Exists(this.GetSaveFolder()))
+                //if (!Directory.Exists(this.GetSaveFolder()))
             {
                MessageBox.Show(eTransmitResources.PleaseSelectADirectory);
             }

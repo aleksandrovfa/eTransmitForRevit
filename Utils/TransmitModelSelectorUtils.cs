@@ -31,6 +31,13 @@ namespace eTransmitForRevitPirat.Utils
 
             Autodesk.Revit.DB.ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(input);
             List<Autodesk.Revit.DB.ModelPath> fromFileOrFolder1 = new List<Autodesk.Revit.DB.ModelPath>();
+            if (modelPath.ServerPath && input.EndsWith(".rvt"))
+            {
+                fromFileOrFolder1.Add((Autodesk.Revit.DB.ModelPath)modelPath);
+                return (IEnumerable<Autodesk.Revit.DB.ModelPath>)fromFileOrFolder1;
+            }
+                
+
             if (serverTrees == null)
             {
                 if (!modelPath.ServerPath)

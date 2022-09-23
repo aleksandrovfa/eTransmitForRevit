@@ -102,7 +102,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AdditionalFilesDialog.resx" />
     <EmbeddedResource Include="eTransmitAboutBox.resx" />
-    <EmbeddedResource Include="eTransmitResources.resx" />
+    <EmbeddedResource Include="eTransmitResources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="eTransmitSettingsDialog.resx" />
     <EmbeddedResource Include="OpenServerFileDialog.resx" />
     <EmbeddedResource Include="ProgressBarDialog.resx" />

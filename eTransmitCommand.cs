@@ -295,8 +295,7 @@ namespace eTransmitForRevitPirat
             return Result.Succeeded;
         }
 
-        public static Result uiTransmitFiles(UIApplication uiApp,bool isRecording,TransmissionOptions optionsNoTimestamp,
-            out TransmissionGraph graph,out string baseOutputDirectory, out bool failCreateDirectory,out bool failDiskSpace)
+        public static Result uiTransmitFiles(UIApplication uiApp,bool isRecording,TransmissionOptions optionsNoTimestamp, out TransmissionGraph graph,out string baseOutputDirectory, out bool failCreateDirectory,out bool failDiskSpace)
         {
             Application application = uiApp.Application;
             failCreateDirectory = false;
@@ -467,9 +466,7 @@ namespace eTransmitForRevitPirat
             return Result.Failed;
         }
 
-        public TransmissionOptions ReadSettingsFile(
-          out bool includeReport,
-          Autodesk.Revit.ApplicationServices.Application revitApp)
+        public TransmissionOptions ReadSettingsFile(  out bool includeReport, Autodesk.Revit.ApplicationServices.Application revitApp)
         {
             string input = "";
             string str1 = "";
@@ -596,10 +593,7 @@ namespace eTransmitForRevitPirat
             };
         }
 
-        public static void WriteSettingsFile(
-          TransmissionOptions options,
-          bool includeReport,
-          Application revitApp)
+        public static void WriteSettingsFile( TransmissionOptions options,  bool includeReport,  Application revitApp)
         {
             string path1 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Autodesk\\eTransmit";
             if (!Directory.Exists(path1))
