@@ -11,7 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Web.UI;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
   internal class eTransmitReport
   {

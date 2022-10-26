@@ -12,7 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
   public class AdditionalFilesDialog : Form
   {

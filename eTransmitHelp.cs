@@ -10,7 +10,7 @@ using Autodesk.Revit.UI;
 using System;
 using System.Windows.Forms;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
     [Regeneration(RegenerationOption.Manual)]
     [Transaction(TransactionMode.Manual)]

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace eTransmitForRevitPirat.Utils
+namespace eTransmitForRevit.Utils
 {
     internal static class TransmitModelSelectorUtils
     {

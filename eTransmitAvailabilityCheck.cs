@@ -7,7 +7,7 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
   internal class eTransmitAvailabilityCheck : IExternalCommandAvailability
   {

@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
   internal class ServerNode
   {

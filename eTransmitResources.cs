@@ -12,7 +12,7 @@ using System.Globalization;
 using System.Resources;
 using System.Runtime.CompilerServices;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
   [GeneratedCode("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
   [DebuggerNonUserCode]
@@ -32,7 +32,7 @@ namespace eTransmitForRevitPirat
       get
       {
         if (eTransmitResources.resourceMan == null)
-          eTransmitResources.resourceMan = new ResourceManager("eTransmitForRevitPirat.eTransmitResources", typeof (eTransmitResources).Assembly);
+          eTransmitResources.resourceMan = new ResourceManager("eTransmitForRevit.eTransmitResources", typeof (eTransmitResources).Assembly);
         return eTransmitResources.resourceMan;
       }
     }

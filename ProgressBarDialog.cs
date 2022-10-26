@@ -10,7 +10,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
   public class ProgressBarDialog : Form
   {

@@ -6,7 +6,7 @@
 
 using Autodesk.Revit.UI;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
   internal class eTransmitHelpLauncher
   {

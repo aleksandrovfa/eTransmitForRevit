@@ -6,7 +6,7 @@
 
 using eTransmitForRevitDB;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
   public class eTransmitCallbackHandler : TransmissionCallbackHandler
   {

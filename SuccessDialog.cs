@@ -15,7 +15,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
   public class SuccessDialog : Form
   {

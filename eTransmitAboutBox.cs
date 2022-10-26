@@ -12,7 +12,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
   internal class eTransmitAboutBox : Form
   {

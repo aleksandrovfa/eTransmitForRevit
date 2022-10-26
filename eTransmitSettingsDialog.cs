@@ -7,7 +7,7 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.Exceptions;
 using Autodesk.Revit.UI;
-using eTransmitForRevitPirat.Utils;
+using eTransmitForRevit.Utils;
 using eTransmitForRevitDB;
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ using Panel = System.Windows.Forms.Panel;
 using Point = System.Drawing.Point;
 using TextBox = System.Windows.Forms.TextBox;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
     public class eTransmitSettingsDialog : Form
     {

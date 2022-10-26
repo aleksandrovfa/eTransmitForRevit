@@ -11,7 +11,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 
-namespace eTransmitForRevitPirat
+namespace eTransmitForRevit
 {
   internal class TransmittingFilesDialog : ProgressBarDialog
   {
